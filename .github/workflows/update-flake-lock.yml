@@ -1,0 +1,46 @@
+name: Update flake.lock
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-flake-lock
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Update inferzero input
+        run: nix flake lock --update-input inferzero
+
+      - name: Check flake
+        run: nix flake check
+
+      - name: Build package
+        run: nix build --print-build-logs
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "flake.lock: update inferzero"
+          title: "flake.lock: update inferzero"
+          body: |
+            Automated update of the locked inferzero source.
+
+            The flake check and package build passed before this pull request was created.
+          branch: automation/update-inferzero
+          delete-branch: true

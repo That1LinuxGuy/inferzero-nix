@@ -35,18 +35,15 @@ Add this repository as an input in your `flake.nix`:
     inferzero-nix.url = "github:That1LinuxGuy/inferzero-nix";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+```
 
-  nixosConfigurations = {
-   x86_64-intel-computer = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./path/to/config.nix
+Then call the package inside a configuration:
 
-        # Add inferzero-nix to your flake's outputs 
-        inputs.inferzero-nix.nixosModules.default
-      ];
-    };
+```nix
+{
+  environment.systemPackages =  [
+    inputs.inferzero-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
 }
 ```
 

@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: update-flake-lock
@@ -26,21 +25,23 @@ jobs:
       - name: Update inferzero input
         run: nix flake lock --update-input inferzero
 
-      - name: Check flake
-        run: nix flake check
-
-      - name: Build package
-        run: nix build --print-build-logs
+      # PRs created with GITHUB_TOKEN do not trigger pull_request workflows.
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           commit-message: "flake.lock: update inferzero"
           title: "flake.lock: update inferzero"
           body: |
             Automated update of the locked inferzero source.
 
-            The flake check and package build passed before this pull request was created.
+            CI will check the flake and build the package on this pull request.
           branch: automation/update-inferzero
           delete-branch: true

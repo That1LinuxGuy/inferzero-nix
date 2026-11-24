@@ -3,11 +3,11 @@
     "inferzero": {
       "flake": false,
       "locked": {
-        "lastModified": 1795475808,
-        "narHash": "sha256-k2hfSp1Cetf3zwuNisIO5BetjiHlz4ukTHpnvD2t778=",
+        "lastModified": 1795530964,
+        "narHash": "sha256-L45qW2Upe3ED7NlM9Xz5yASYtlipDbwaQBJrbVAgcT8=",
         "owner": "rizagp",
         "repo": "inferzero",
-        "rev": "9c64a89d70938667b9e458876834bcc311f0cc43",
+        "rev": "6e7b1401ef8efa04f5ae44176d143746c41bd866",
         "type": "github"
       },
       "original": {

@@ -3,11 +3,19 @@
     "inferzero": {
       "flake": false,
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1795530964,
         "narHash": "sha256-L45qW2Upe3ED7NlM9Xz5yASYtlipDbwaQBJrbVAgcT8=",
         "owner": "rizagp",
         "repo": "inferzero",
         "rev": "6e7b1401ef8efa04f5ae44176d143746c41bd866",
+=======
+        "lastModified": 1795664748,
+        "narHash": "sha256-HnhI3QfHKlqNSiNy5sle3HvpGWxdbv2+xPcJeuqpZDA=",
+        "owner": "rizagp",
+        "repo": "inferzero",
+        "rev": "b3f62b44a4314cf49078f98c08fe72beed523448",
+>>>>>>> 7abd3c1 (udpate flake.lock)
         "type": "github"
       },
       "original": {
